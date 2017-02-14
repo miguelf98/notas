@@ -1,0 +1,88 @@
+/*var info = JSON.parse(window.localStorage.getItem(producto));
+	window.localStorage.setItem("dinheiro", getDinheiro()-parseInt(info[4]));
+p8[4] = "80";
+	
+	var p9 = [];
+	p9[0] = "0";
+	p9[1] = "5";
+	p9[2] = "5";
+	p9[3] = "5";
+	p9[4] = "90";
+	
+	window.localStorage.setItem("p1", JSON.stringify(p1));
+	window.localStorage.setItem("p2", JSON.stringify(p2));
+	window.localStorage.setItem("p3", JSON.stringify(p3));
+	window.localStorage.setItem("p4", JSON.stringify(p4));
+	wind
+	
+	
+	var myObj = { 
+	"NOTA 1":"Lotrem",
+    "Nota 2":"djsaiodnas d"
+    };
+    myObj["NOTA 3"]="OOO";
+for (x in myObj) {
+    document.getElementById("demo").innerHTML += x + "-" +myObj[x] + "<br>";
+}
+
+
+	*/
+	
+function adicionarNota(){
+		var notas = JSON.parse(window.localStorage.getItem("notas"));
+		var titulo=document.getElementById("notaTitulo").value ;
+		var descricao=document.getElementById("notaDescricao").value ;
+			
+		if(notas===null)			
+			notas = {titulo:descricao};
+		else
+			notas[titulo]=descricao;
+		window.localStorage.setItem("notas",JSON.stringify(notas));
+		
+		document.getElementById("notaTitulo").value="";
+		document.getElementById("notaDescricao").value="";
+	   document.location.href='verNotas.html';
+	
+}
+
+function limpa(){
+	
+		window.localStorage.setItem("notas",null);
+}
+
+function preencheNotas(){
+	var notas = JSON.parse(window.localStorage.getItem("notas"))
+	for (x in notas) {
+		str="";
+		str+='<div class="nota" onclick="verNota(\'' + x + '\');">';
+		str+='<div class="titulo">' + x + '</div>';
+		str+='<div class="descricao">' + notas[x].substring(0,40) + '(...)</div>';
+		str+='</div>';
+		document.getElementById("notas").innerHTML += str;
+	}
+}
+
+function verNota(titulo){
+	window.localStorage.setItem("nota",titulo);
+	document.location.href = 'verNota.html';
+}
+
+function preencheNota(){
+	var notas=JSON.parse(window.localStorage.getItem("notas"));
+	var titulo=window.localStorage.getItem("nota");
+	document.getElementById("titulo").innerHTML=titulo;
+	var descricao="";
+	for (x in notas) {
+		if(x==titulo)
+			descricao=notas[x];
+	}
+	document.getElementById("notaTitulo").value=titulo;
+	document.getElementById("notaDescricao").value=descricao;
+}
+
+function eliminarNota(){
+	var notas=JSON.parse(window.localStorage.getItem("notas"));	
+	delete notas[window.localStorage.getItem("nota")];
+	window.localStorage.setItem("notas",JSON.stringify(notas));
+	document.location.href='verNotas.html';
+}
